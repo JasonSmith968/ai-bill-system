@@ -1,6 +1,6 @@
 import os
 
-
+import json
 # 自动分类
 # =========================
 def get_category(title):
@@ -41,54 +41,44 @@ def get_category(title):
     else:
         return "其他"
 
+# =====================
+# 读取账单
+# =====================
 
-# =========================
-# 读取文件
-# =========================
 def load_bills():
 
-    bills = []
+    if not os.path.exists("bills.json"):
 
-    if not os.path.exists("bills.txt"):
-        open("bills.txt", "w", encoding="utf-8").close()
+        return []
 
-    with open("bills.txt", "r", encoding="utf-8") as file:
+    with open(
+        "bills.json",
+        "r",
+        encoding="utf-8"
+    ) as file:
 
-        for line in file:
-
-            parts = line.strip().split()
-
-            if len(parts) != 4:
-                continue
-
-            bill = {
-                "date": parts[0],
-                "title": parts[1],
-                "money": float(parts[2]),
-                "category": parts[3]
-            }
-
-            bills.append(bill)
+        bills = json.load(file)
 
     return bills
 
+# =====================
+# 保存账单
+# =====================
 
-# =========================
-# 保存文件
-# =========================
 def save_bills(bills):
 
-    with open("bills.txt", "w", encoding="utf-8") as file:
+    with open(
+        "bills.json",
+        "w",
+        encoding="utf-8"
+    ) as file:
 
-        for bill in bills:
-
-            file.write(
-                f"{bill['date']} "
-                f"{bill['title']} "
-                f"{bill['money']} "
-                f"{bill['category']}\n"
-            )
-
+        json.dump(
+            bills,
+            file,
+            ensure_ascii=False,
+            indent=4
+        )
 
 # =========================
 # 打印账单
@@ -108,6 +98,230 @@ def show_bills(bills):
             f"{bill['money']:.2f}",
             bill["category"]
         )
+
+# =====================
+# 添加账单
+# =====================
+
+def  add_bill():
+
+    date = input("请输入日期(例如2026-05): ")
+
+    title = input("请输入消费项目: ")
+
+    money = float(input("请输入消费金额: "))
+
+    category = get_category(title)
+
+    bill = {
+        "date": date,
+        "title": title,
+        "money": money,
+        "category": category
+    }
+
+    bills = load_bills()
+
+    bills.append(bill)
+
+    save_bills(bills)
+
+    print("AI识别分类:", category)
+    print("添加成功")
+    return category
+
+# =====================
+# 查询账单
+# =====================
+
+def query_bills():
+
+    bills = load_bills()
+
+    if len(bills) == 0:
+        print("暂无账单")
+        return
+
+    print("\n===== 当前账单 =====")
+
+    total = 0
+
+    for index, bill in enumerate(bills):
+
+        total += bill["money"]
+
+        print(
+            index + 1,
+            bill["date"],
+            bill["title"],
+            f"{bill['money']:.2f}",
+            bill["category"]
+        )
+
+    print("\n总消费:", f"{total:.2f}")
+
+# =====================
+# 删除账单
+# =====================
+
+def delete_bill():
+
+    bills = load_bills()
+
+    if len(bills) == 0:
+        print("暂无账单")
+        return
+
+    # 先显示账单
+    query_bills()
+
+    try:
+
+        index = int(input("\n请输入要删除的账单编号: "))
+
+        # 编号转索引
+        real_index = index - 1
+
+        # 判断是否越界
+        if real_index < 0 or real_index >= len(bills):
+
+            print("编号不存在")
+            return
+
+        # 删除数据
+        deleted_bill = bills.pop(real_index)
+
+        # 保存文件
+        save_bills(bills)
+
+        print("删除成功:", deleted_bill["title"])
+
+    except:
+
+        print("输入错误")
+
+# =====================
+# 搜索账单
+# =====================
+
+def search_bill():
+
+    bills = load_bills()
+
+    if len(bills) == 0:
+
+        print("暂无账单")
+        return
+
+    keyword = input("请输入搜索关键词: ")
+
+    found = False
+
+    print("\n===== 搜索结果 =====")
+
+    for bill in bills:
+
+        # 模糊搜索
+        if keyword in bill["title"]:
+
+            found = True
+
+            print(
+                bill["date"],
+                bill["title"],
+                f"{bill['money']:.2f}",
+                bill["category"]
+            )
+
+    if not found:
+
+        print("未找到相关账单")
+
+# =====================
+# 分类统计
+# =====================
+
+def category_statistics():
+
+    bills = load_bills()
+
+    if len(bills) == 0:
+
+        print("暂无账单")
+        return
+
+    # 统计字典
+    statistics = {}
+
+    # 开始统计
+    for bill in bills:
+
+        category = bill["category"]
+
+        money = bill["money"]
+
+        # 如果分类不存在
+        if category not in statistics:
+
+            statistics[category] = 0
+
+        # 累加金额
+        statistics[category] += money
+
+    print("\n===== 分类统计 =====")
+
+    total = 0
+
+    for category, money in statistics.items():
+
+        total += money
+
+        print(f"{category}: {money:.2f}")
+
+    print("\n总消费:", f"{total:.2f}")
+
+# =====================
+# 月度统计
+# =====================
+
+def month_statistics():
+
+    bills = load_bills()
+
+    if len(bills) == 0:
+
+        print("暂无账单")
+        return
+
+    month = input("请输入月份(例如2026-05): ")
+
+    total = 0
+
+    found = False
+
+    print(f"\n===== {month} 月账单 =====")
+
+    for bill in bills:
+
+        # 判断月份
+        if bill["date"] == month:
+
+            found = True
+
+            total += bill["money"]
+
+            print(
+                bill["title"],
+                f"{bill['money']:.2f}",
+                bill["category"]
+            )
+
+    if not found:
+
+        print("该月份暂无账单")
+        return
+
+    print(f"\n{month} 总消费:", f"{total:.2f}")
 
 
 # =========================
@@ -136,174 +350,42 @@ while True:
     # =========================
     if choice == "1":
 
-        date = input("请输入日期(例如2026-05)：")
-
-        title = input("请输入消费项目：")
-
-        money = float(input("请输入消费金额："))
-
-        category = get_category(title)
-
-        bill = {
-            "date": date,
-            "title": title,
-            "money": money,
-            "category": category
-        }
-
-        bills = load_bills()
-
-        bills.append(bill)
-
-        save_bills(bills)
-
-        print("AI识别分类：", category)
-        print("添加成功")
-
+        add_bill()
 
     # =========================
     # 查询账单
     # =========================
     elif choice == "2":
 
-        bills = load_bills()
+        query_bills()
 
-        print("\n===== 当前账单 =====")
-
-        total = 0
-
-        for bill in bills:
-
-            total += bill["money"]
-
-            print("日期：", bill["date"])
-            print("消费项目：", bill["title"])
-            print("金额：", f"{bill['money']:.2f}")
-            print("分类：", bill["category"])
-            print()
-
-        print("总消费：", f"{total:.2f}")
 # =========================
     # 删除账单
     # =========================
     elif choice == "3":
 
-        bills = load_bills()
-
-        print("\n===== 当前账单 =====")
-
-        show_bills(bills)
-
-        delete_num = int(input("请输入要删除的编号："))
-
-        if delete_num < 1 or delete_num > len(bills):
-            print("编号不存在")
-            continue
-
-        bills.pop(delete_num - 1)
-
-        save_bills(bills)
-
-        print("删除成功")
-
+        delete_bill()
 
     # =========================
     # 分类统计
     # =========================
     elif choice == "4":
 
-        bills = load_bills()
-
-        category_total = {}
-
-        for bill in bills:
-
-            category = bill["category"]
-            money = bill["money"]
-
-            if category in category_total:
-
-                category_total[category] += money
-
-            else:
-
-                category_total[category] = money
-
-        print("\n===== 分类统计 =====")
-
-        for category in category_total:
-
-            print(
-                category,
-                ":",
-                f"{category_total[category]:.2f}"
-            )
-
+        category_statistics()
 
     # =========================
     # 搜索账单
     # =========================
     elif choice == "5":
 
-        keyword = input("请输入搜索关键词：")
-
-        bills = load_bills()
-
-        found = False
-
-        print("\n===== 搜索结果 =====")
-
-        for bill in bills:
-
-            if keyword in bill["title"]:
-
-                print("日期：", bill["date"])
-                print("消费项目：", bill["title"])
-                print("金额：", f"{bill['money']:.2f}")
-                print("分类：", bill["category"])
-                print()
-
-                found = True
-
-        if found == False:
-            print("没有找到相关账单")
-
+        search_bill()
 
     # =========================
     # 金额排序
     # =========================
     elif choice == "6":
 
-        bills = load_bills()
-
-        print("1. 从高到低")
-        print("2. 从低到高")
-
-        sort_choice = input("请选择排序方式：")
-
-        if sort_choice == "1":
-
-            bills.sort(
-                key=lambda bill: bill["money"],
-                reverse=True
-            )
-
-        elif sort_choice == "2":
-
-            bills.sort(
-                key=lambda bill: bill["money"]
-            )
-
-        print("\n===== 排序结果 =====")
-
-        for bill in bills:
-
-            print("日期：", bill["date"])
-            print("消费项目：", bill["title"])
-            print("金额：", f"{bill['money']:.2f}")
-            print("分类：", bill["category"])
-            print()
-
+        month_statistics()
 
     # =========================
     # 最高消费

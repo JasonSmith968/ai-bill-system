@@ -1,16 +1,13 @@
-# AI记账系统
+# AI Bill System
 
-这是我学习 Python 开发的第一个项目。
+An AI-powered financial analysis platform based on Flask + OpenAI Agents.
 
-功能：
-- 添加账单
-- 查询账单
-- 删除账单
-- 文件存储
+## Core Features
 
-技术：
-- Python
-- 文件操作
-- 列表
-- 循环
-- 函数
+- Multi-Agent Collaboration
+- AI Consumption Analysis
+- Long Context Reasoning
+- Intelligent Category Classification
+- Budget Risk Detection
+- Token Usage Monitoring
+- Visualization Dashboard

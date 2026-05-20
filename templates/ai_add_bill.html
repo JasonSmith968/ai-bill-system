@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI智能记账
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <h2 class="text-primary mb-4">
+                AI 智能记账
+            </h2>
+
+            <form method="POST">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        输入消费内容
+                    </label>
+
+                    <textarea
+                        name="bill_text"
+                        class="form-control"
+                        rows="4"
+                        placeholder="例如：昨天和朋友吃火锅花了268"
+                        required
+                    ></textarea>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-success"
+                >
+                    AI解析账单
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

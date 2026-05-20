@@ -1,0 +1,39 @@
+body {
+
+    background-color: #f5f7fa;
+}
+
+.navbar {
+
+    background:
+        linear-gradient(
+            90deg,
+            #0d6efd,
+            #198754
+        );
+}
+
+.navbar-brand,
+.navbar-text {
+
+    color: white !important;
+
+    font-weight: bold;
+}
+
+.card {
+
+    border: none;
+
+    border-radius: 15px;
+}
+
+.stat-card {
+
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+
+    transform: translateY(-3px);
+}

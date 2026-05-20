@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <h2 class="text-success mb-4">
+                AI识别结果确认
+            </h2>
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>标题</th>
+                    <td>{{ bill.title }}</td>
+                </tr>
+
+                <tr>
+                    <th>金额</th>
+                    <td>¥ {{ bill.money }}</td>
+                </tr>
+
+                <tr>
+                    <th>分类</th>
+                    <td>{{ bill.category }}</td>
+                </tr>
+
+                <tr>
+                    <th>日期</th>
+                    <td>{{ bill.date }}</td>
+                </tr>
+
+            </table>
+
+            <form
+                method="POST"
+                action="/confirm_ai_bill"
+            >
+
+                <button
+                    type="submit"
+                    class="btn btn-success"
+                >
+                    确认入账
+                </button>
+
+                <a
+                    href=" "
+                    class="btn btn-secondary"
+                >
+                    重新识别
+                </a >
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

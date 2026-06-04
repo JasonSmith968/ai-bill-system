@@ -1,0 +1,13 @@
+cluster.name: ai-accounting
+network.host: 0.0.0.0
+discovery.type: single-node
+
+# Security (disabled for simplicity, enable in production)
+xpack.security.enabled: false
+xpack.security.enrollment.enabled: false
+
+# Memory
+indices.memory.index_buffer_size: 20%
+
+# Index lifecycle
+action.destructive_requires_name: true

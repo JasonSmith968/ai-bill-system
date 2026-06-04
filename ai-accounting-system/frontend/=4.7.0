@@ -1,0 +1,10 @@
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'marked@18.0.4',
+npm WARN EBADENGINE   required: { node: '>= 20' },
+npm WARN EBADENGINE   current: { node: 'v18.12.1', npm: '8.19.2' }
+npm WARN EBADENGINE }
+
+added 7 packages in 1s
+
+35 packages are looking for funding
+  run `npm fund` for details

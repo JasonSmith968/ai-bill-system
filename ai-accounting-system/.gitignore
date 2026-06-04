@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Environment files (SECURITY: never commit secrets)
+.env
+.env.local
+.env.production
+.env.*
+!.env.example
+!.env.production.example
+
+# Logs
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+frontend/dist/
+.vite/
+
+# Database
+*.db
+*.sqlite3
+
+# Flask
+instance/
+backend/uploads/
+
+# Docker
+docker-compose.override.yml
+
+# SSL certificates
+nginx/ssl/*.pem
+nginx/ssl/*.key
+
+# Monitoring data
+monitoring/grafana/data/
+prometheus_data/
+
+# ELK data
+elk/elasticsearch/data/
+
+# Backups
+backups/

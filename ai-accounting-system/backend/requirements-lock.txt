@@ -1,0 +1,75 @@
+# ============================================================================
+# Pinned Dependencies - AI Accounting System
+# ============================================================================
+# Generated: 2026-05-28 06:01:18
+# Python: 3.13.9
+#
+# This file contains exact version pins for reproducible builds.
+# DO NOT EDIT MANUALLY - edit requirements.in and regenerate:
+#   python scripts/lock_dependencies.py
+#
+# To add hash verification, run:
+#   python scripts/lock_dependencies.py --with-hashes
+# Install with: pip install -r requirements-lock.txt
+# ============================================================================
+
+# ────────────────────────────────────────────────────────────────────────────
+# Other
+# ────────────────────────────────────────────────────────────────────────────
+Flask==3.0.0
+Flask-SQLAlchemy==3.1.1
+Flask-Migrate==4.0.5
+Flask-CORS==4.0.0
+PyJWT==2.8.0
+Werkzeug==3.0.1
+Flask-Limiter==3.5.0
+redis==5.0.1
+pyotp==2.9.0
+qrcode==7.4.2
+PyMySQL==1.1.0
+cryptography==44.0.0
+requests==2.31.0
+openpyxl==3.1.2
+reportlab==4.0.8
+Pillow==10.1.0
+rapidocr-onnxruntime==1.3.16
+python-dotenv==1.0.0
+minio==7.2.0
+oss2==2.18.0
+cos-python-sdk-v5==1.9.30
+celery==5.3.6
+flask-caching==2.1.0
+flask-socketio==5.3.6
+eventlet==0.35.2
+sentry-sdk[flask]==1.38.0
+prometheus-client==0.19.0
+gunicorn==21.2.0
+
+# ────────────────────────────────────────────────────────────────────────────
+# Transitive Dependencies (pinned for reproducibility)
+# ────────────────────────────────────────────────────────────────────────────
+# These are automatically resolved but pinned here for consistency
+
+Jinja2==3.1.2
+Mako==1.3.0
+MarkupSafe==2.1.3
+SQLAlchemy==2.0.23
+alembic==1.13.1
+amqp==5.2.0
+async-timeout==4.0.3
+billiard==4.2.0
+blinker==1.7.0
+certifi==2023.11.17
+charset-normalizer==3.3.2
+click==8.1.7
+colorama==0.4.6
+et-xmlfile==1.1.0
+idna==3.6
+importlib-metadata==7.0.1
+itsdangerous==2.1.2
+kombu==5.3.4
+pypng==0.20220715.0
+typing_extensions==4.9.0
+urllib3==2.1.0
+vine==5.1.0
+zipp==3.17.0

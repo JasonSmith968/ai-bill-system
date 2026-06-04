@@ -1,0 +1,202 @@
+{
+    "metrics": {
+        "errors": {
+            "passes": 911,
+            "fails": 1,
+            "thresholds": {
+                "rate<0.1": true
+            },
+            "value": 0.9989035087719298
+        },
+        "data_received": {
+            "count": 120396,
+            "rate": 1144.7973318109432
+        },
+        "ws_msgs_sent": {
+            "rate": 8.662334041660598,
+            "count": 911
+        },
+        "http_req_connecting": {
+            "p(90)": 0,
+            "p(95)": 0,
+            "avg": 0,
+            "min": 0,
+            "med": 0,
+            "max": 0
+        },
+        "iteration_duration": {
+            "p(90)": 6025.53808,
+            "p(95)": 6029.0198,
+            "avg": 6009.768526535084,
+            "min": 112.7192,
+            "med": 6016.0808,
+            "max": 6035.8403
+        },
+        "ws_msgs_received": {
+            "count": 0,
+            "rate": 0,
+            "thresholds": {
+                "count>100": true
+            }
+        },
+        "http_req_duration": {
+            "min": 99.3179,
+            "med": 99.3179,
+            "max": 99.3179,
+            "p(90)": 99.3179,
+            "p(95)": 99.3179,
+            "avg": 99.3179
+        },
+        "vus_max": {
+            "value": 100,
+            "min": 100,
+            "max": 100
+        },
+        "http_req_waiting": {
+            "p(95)": 98.4117,
+            "avg": 98.4117,
+            "min": 98.4117,
+            "med": 98.4117,
+            "max": 98.4117,
+            "p(90)": 98.4117
+        },
+        "http_req_failed": {
+            "passes": 0,
+            "fails": 1,
+            "value": 0
+        },
+        "ws_sessions": {
+            "count": 911,
+            "rate": 8.662334041660598
+        },
+        "ws_session_duration": {
+            "avg": 5009.216232601538,
+            "min": 5000.1974,
+            "med": 5008.4305,
+            "max": 5025.767,
+            "p(90)": 5016.3349,
+            "p(95)": 5018.1088500000005
+        },
+        "iterations": {
+            "count": 911,
+            "rate": 8.662334041660598
+        },
+        "http_req_duration{expected_response:true}": {
+            "avg": 99.3179,
+            "min": 99.3179,
+            "med": 99.3179,
+            "max": 99.3179,
+            "p(90)": 99.3179,
+            "p(95)": 99.3179
+        },
+        "http_req_sending": {
+            "avg": 0,
+            "min": 0,
+            "med": 0,
+            "max": 0,
+            "p(90)": 0,
+            "p(95)": 0
+        },
+        "data_sent": {
+            "count": 688001,
+            "rate": 6541.925886933625
+        },
+        "vus": {
+            "max": 100,
+            "value": 1,
+            "min": 1
+        },
+        "http_req_tls_handshaking": {
+            "med": 0,
+            "max": 0,
+            "p(90)": 0,
+            "p(95)": 0,
+            "avg": 0,
+            "min": 0
+        },
+        "ws_connecting": {
+            "min": 0,
+            "med": 1.8892,
+            "max": 9.946,
+            "p(90)": 3.7557,
+            "p(95)": 4.6722,
+            "avg": 2.06750241492865,
+            "thresholds": {
+                "p(95)<1000": false
+            }
+        },
+        "http_reqs": {
+            "count": 1,
+            "rate": 0.009508599387113719
+        },
+        "http_req_blocked": {
+            "med": 13.4013,
+            "max": 13.4013,
+            "p(90)": 13.4013,
+            "p(95)": 13.4013,
+            "avg": 13.4013,
+            "min": 13.4013
+        },
+        "checks": {
+            "passes": 913,
+            "fails": 911,
+            "value": 0.5005482456140351
+        },
+        "http_req_receiving": {
+            "avg": 0.9062,
+            "min": 0.9062,
+            "med": 0.9062,
+            "max": 0.9062,
+            "p(90)": 0.9062,
+            "p(95)": 0.9062
+        }
+    },
+    "setup_data": {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJ0ZW5hbnRfaWQiOjIsInRlbmFudF9yb2xlIjoib3duZXIiLCJleHAiOjE3Nzk5MDQwNTksImlhdCI6MTc3OTkwMzE1OSwidHlwZSI6ImFjY2VzcyIsImp0aSI6IjJlYWM2Yzg5LWY0ZjctNDM2ZC05MDZjLWZjMmU5MWI4ZDI0MSIsImZhbWlseSI6IjQzZTc5NmQ2LWMzZGYtNDk0ZS04NWRhLWExYTY1OWIzMmJmMyIsInJvbGUiOiJtZW1iZXIiLCJwZXJtaXNzaW9ucyI6WyJ0cmFuc2FjdGlvbjpyZWFkIiwidHJhbnNhY3Rpb246Y3JlYXRlIiwidHJhbnNhY3Rpb246dXBkYXRlIiwiYWk6Y2FsbCIsImFpOmFnZW50IiwicmVwb3J0OmV4cG9ydCJdfQ.MSI7PfDqNYzRt1676OQsfPSzHMav11tYUxL12zLOCK0"
+    },
+    "root_group": {
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {
+            "setup": {
+                "checks": {
+                    "login status 200": {
+                        "name": "login status 200",
+                        "path": "::setup::login status 200",
+                        "id": "17a4a3f3d5dbad586fefc48e40f4a9ab",
+                        "passes": 1,
+                        "fails": 0
+                    },
+                    "has access_token": {
+                        "name": "has access_token",
+                        "path": "::setup::has access_token",
+                        "id": "7e5052bd2b94048e3a7b72a11d1a0ac8",
+                        "passes": 1,
+                        "fails": 0
+                    }
+                },
+                "name": "setup",
+                "path": "::setup",
+                "id": "5c0f8025f7e0b6654089e5b00e950f1a",
+                "groups": {}
+            }
+        },
+        "checks": {
+            "ws connected": {
+                "passes": 0,
+                "fails": 911,
+                "name": "ws connected",
+                "path": "::ws connected",
+                "id": "b890c791400ee254856ecce8133edded"
+            },
+            "ws connection successful": {
+                "name": "ws connection successful",
+                "path": "::ws connection successful",
+                "id": "5fd3656c308609304e6b0d363f3b5a37",
+                "passes": 911,
+                "fails": 0
+            }
+        },
+        "name": ""
+    }
+}

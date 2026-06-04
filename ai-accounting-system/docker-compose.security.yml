@@ -1,0 +1,192 @@
+# =============================================================================
+# AI Accounting System - Security Hardened Overlay
+# =============================================================================
+# Usage:
+#   docker compose -f docker-compose.prod.yml -f docker-compose.security.yml up -d
+#
+# This overlay adds defense-in-depth security controls to every service:
+#   - no-new-privileges: prevents privilege escalation via setuid
+#   - cap-drop ALL: removes all Linux capabilities (add back only what's needed)
+#   - read-only: immutable root filesystem (writable via tmpfs mounts)
+#   - tmpfs: ephemeral writable directories for runtime needs
+# =============================================================================
+
+services:
+  # ==================== MySQL ====================
+  mysql:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+      - NET_BIND_SERVICE
+    read_only: true
+    tmpfs:
+      - /tmp:size=100M
+      - /var/run/mysqld:size=10M
+
+  # ==================== Redis ====================
+  redis:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=50M
+
+  # ==================== Flask Backend ====================
+  backend:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=100M
+      - /app/uploads:size=500M
+      - /app/logs:size=100M
+
+  # ==================== Celery Worker ====================
+  celery-worker:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=100M
+      - /app/uploads:size=500M
+      - /app/logs:size=100M
+
+  # ==================== Celery Beat ====================
+  celery-beat:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=50M
+      - /app/logs:size=50M
+
+  # ==================== Vue Frontend ====================
+  frontend:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=50M
+      - /var/cache/nginx:size=50M
+      - /var/run:size=10M
+
+  # ==================== Nginx (Reverse Proxy) ====================
+  nginx:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE  # needed for port 80/443
+    read_only: true
+    tmpfs:
+      - /tmp:size=50M
+      - /var/cache/nginx:size=100M
+      - /var/run:size=10M
+      - /var/log/nginx:size=100M
+
+  # ==================== Monitoring: Prometheus ====================
+  prometheus:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=50M
+
+  # ==================== Monitoring: Grafana ====================
+  grafana:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=50M
+
+  # ==================== Monitoring: Node Exporter ====================
+  node-exporter:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=50M
+
+  # ==================== Monitoring: Redis Exporter ====================
+  redis-exporter:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=50M
+
+  # ==================== Monitoring: MySQL Exporter ====================
+  mysql-exporter:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=50M
+
+  # ==================== Monitoring: Alertmanager ====================
+  alertmanager:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=50M
+
+  # ==================== ELK: Elasticsearch ====================
+  elasticsearch:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=100M
+
+  # ==================== ELK: Kibana ====================
+  kibana:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=50M
+
+  # ==================== ELK: Filebeat ====================
+  filebeat:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=50M

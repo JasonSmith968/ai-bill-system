@@ -1,0 +1,70 @@
+filebeat.inputs:
+  # Nginx access log (plain text format, NOT JSON)
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/nginx/access.log
+    fields:
+      log_type: nginx_access
+    fields_under_root: true
+
+  # Nginx error log
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/nginx/error.log
+    fields:
+      log_type: nginx_error
+    fields_under_root: true
+
+  # Backend application log files (app.log, error.log, etc.)
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/backend/*.log
+    fields:
+      log_type: backend_app
+    fields_under_root: true
+    json.keys_under_root: true
+    json.add_error_key: true
+    json.message_key: message
+
+  # Backend container stdout/stderr (via Docker log driver)
+  - type: container
+    enabled: true
+    paths:
+      - /var/lib/docker/containers/*/*.log
+    processors:
+      - add_docker_metadata:
+          host: "unix:///var/run/docker.sock"
+    condition:
+      contains:
+        container.name: "ai-backend"
+
+processors:
+  - drop_fields:
+      fields: ["agent.ephemeral_id", "agent.hostname", "agent.id", "agent.version", "ecs.version"]
+      ignore_missing: true
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]
+  indices:
+    - index: "nginx-access-%{+yyyy.MM.dd}"
+      when.contains:
+        log_type: "nginx_access"
+    - index: "nginx-error-%{+yyyy.MM.dd}"
+      when.contains:
+        log_type: "nginx_error"
+    - index: "backend-app-%{+yyyy.MM.dd}"
+      when.contains:
+        log_type: "backend_app"
+    - index: "backend-container-%{+yyyy.MM.dd}"
+
+setup.template:
+  name: "ai-accounting"
+  pattern: "ai-accounting-*"
+
+setup.ilm.enabled: false
+
+logging.level: warning
+logging.to_stderr: true

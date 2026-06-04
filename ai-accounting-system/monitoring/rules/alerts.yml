@@ -1,0 +1,212 @@
+groups:
+  - name: app_alerts
+    rules:
+      # Service down
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ $labels.job }} instance {{ $labels.instance }} is down"
+          description: "{{ $labels.job }} has been unreachable for more than 1 minute."
+
+      # High error rate (5xx > 5% for 5 minutes)
+      - alert: HighErrorRate
+        expr: |
+          (
+            sum(rate(flask_request_total{status=~"5.."}[5m]))
+            /
+            sum(rate(flask_request_total[5m]))
+          ) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High 5xx error rate detected"
+          description: "Error rate is {{ $value | humanizePercentage }} (threshold: 5%)"
+
+      # High request latency (p95 > 5s)
+      - alert: HighLatency
+        expr: histogram_quantile(0.95, sum(rate(flask_request_duration_seconds_bucket[5m])) by (le)) > 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High request latency detected"
+          description: "P95 latency is {{ $value | humanizeDuration }} (threshold: 5s)"
+
+      # Redis memory usage > 80%
+      - alert: RedisHighMemory
+        expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis memory usage is high"
+          description: "Redis memory usage is {{ $value | humanizePercentage }}"
+
+      # MySQL connections near limit
+      - alert: MySQLHighConnections
+        expr: mysql_global_status_threads_connected / mysql_global_variables_max_connections > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "MySQL connection pool near limit"
+          description: "MySQL connections at {{ $value | humanizePercentage }} of max"
+
+      # Disk space low
+      - alert: DiskSpaceLow
+        expr: (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) < 0.15
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk space is running low"
+          description: "Only {{ $value | humanizePercentage }} disk space remaining"
+
+      # High CPU usage
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 85
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage on {{ $labels.instance }}"
+          description: "CPU usage is {{ $value | humanize }}%"
+
+      # --- AI / LLM Alerts ---
+
+      # AI error rate > 20%
+      - alert: AIHighErrorRate
+        expr: |
+          sum(rate(ai_errors_total[5m])) by (agent)
+          /
+          sum(rate(ai_calls_total[5m])) by (agent) > 0.2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "AI agent {{ $labels.agent }} high error rate"
+          description: "Error rate is {{ $value | humanizePercentage }} (threshold: 20%)"
+
+      # AI latency P95 > 30s
+      - alert: AIHighLatency
+        expr: histogram_quantile(0.95, sum(rate(ai_latency_seconds_bucket[5m])) by (le, agent)) > 30
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "AI agent {{ $labels.agent }} high latency"
+          description: "P95 latency is {{ $value | humanizeDuration }} (threshold: 30s)"
+
+      # Circuit breaker open
+      - alert: CircuitBreakerOpen
+        expr: circuit_breaker_state == 1
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Circuit breaker OPEN for {{ $labels.agent }}"
+          description: "Agent {{ $labels.agent }} circuit breaker has been open for over 2 minutes"
+
+      # --- Celery Alerts ---
+
+      # Queue backlog
+      - alert: CeleryQueueBacklog
+        expr: celery_queue_length > 500
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Celery queue {{ $labels.queue_name }} backlog"
+          description: "Queue has {{ $value }} pending tasks (threshold: 500)"
+
+      # --- Stripe Alerts ---
+
+      # Webhook processing delay (no events in 1h)
+      - alert: StripeWebhookStale
+        expr: time() - stripe_last_webhook_timestamp_seconds > 3600
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Stripe webhooks may be stale"
+          description: "No webhook events processed for {{ $value | humanizeDuration }}"
+
+      # High payment failure rate
+      - alert: StripeHighFailureRate
+        expr: |
+          stripe_payments_failed_total
+          /
+          (stripe_payments_succeeded_total + stripe_payments_failed_total) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Stripe payment failure rate"
+          description: "Payment failure rate is {{ $value | humanizePercentage }}"
+
+      # --- Cost & Margin Alerts ---
+
+      # Gross margin below 50%
+      - alert: LowGrossMargin
+        expr: ai_gross_margin_percent < 50
+        for: 1h
+        labels:
+          severity: critical
+        annotations:
+          summary: "Gross margin critically low"
+          description: "Gross margin is {{ $value }}% (threshold: 50%)"
+
+      # Gross margin below target 70%
+      - alert: GrossMarginBelowTarget
+        expr: ai_gross_margin_percent < 70
+        for: 6h
+        labels:
+          severity: warning
+        annotations:
+          summary: "Gross margin below target"
+          description: "Gross margin is {{ $value }}% (target: 70%)"
+
+      # Free user burn rate > $50/month
+      - alert: HighFreeUserBurn
+        expr: ai_free_user_monthly_burn_usd > 50
+        for: 1d
+        labels:
+          severity: warning
+        annotations:
+          summary: "Free user burn rate high"
+          description: "Free user monthly burn: ${{ $value }} (threshold: $50)"
+
+      # Per-user AI cost > $1/day
+      - alert: HighPerUserCost
+        expr: ai_cost_cents_total / ai_unique_users / 100 > 1
+        for: 1d
+        labels:
+          severity: warning
+        annotations:
+          summary: "High per-user AI cost"
+          description: "Average per-user cost: ${{ $value }}/day"
+
+      # Churn rate > 10%
+      - alert: HighChurnRate
+        expr: stripe_churn_rate_percent > 10
+        for: 1d
+        labels:
+          severity: warning
+        annotations:
+          summary: "High subscription churn rate"
+          description: "Churn rate: {{ $value }}% (threshold: 10%)"
+
+      # AI cost ratio > 30% of revenue
+      - alert: HighAICostRatio
+        expr: |
+          (ai_cost_cents_total / stripe_revenue_cents) * 100 > 30
+        for: 1d
+        labels:
+          severity: warning
+        annotations:
+          summary: "AI cost ratio high relative to revenue"
+          description: "AI costs are {{ $value }}% of revenue (threshold: 30%)"

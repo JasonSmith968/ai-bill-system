@@ -1,0 +1,214 @@
+{
+    "metrics": {
+        "vus_max": {
+            "max": 500,
+            "value": 500,
+            "min": 500
+        },
+        "errors": {
+            "passes": 22097,
+            "fails": 2839,
+            "thresholds": {
+                "rate<0.10": true
+            },
+            "value": 0.8861485402630734
+        },
+        "http_req_failed": {
+            "passes": 24670,
+            "fails": 3296,
+            "value": 0.8821426017306729
+        },
+        "http_req_duration": {
+            "p(95)": 4922.052775,
+            "avg": 1472.3671814882382,
+            "min": 0,
+            "med": 562.899,
+            "max": 6401.0599,
+            "p(90)": 4256.759,
+            "thresholds": {
+                "p(99)<2000": true,
+                "p(95)<500": true
+            }
+        },
+        "data_received": {
+            "count": 24246258,
+            "rate": 96683.9805539122
+        },
+        "http_req_blocked": {
+            "p(90)": 0.659,
+            "p(95)": 0.8204750000000001,
+            "avg": 0.2952192197668597,
+            "min": 0,
+            "med": 0,
+            "max": 10.5251
+        },
+        "checks": {
+            "passes": 3246,
+            "fails": 5694,
+            "value": 0.36308724832214767
+        },
+        "http_reqs": {
+            "count": 27966,
+            "rate": 111.51676271739369
+        },
+        "http_req_receiving": {
+            "avg": 1.1084839841235778,
+            "min": 0,
+            "med": 0.46895,
+            "max": 11.3439,
+            "p(90)": 3.35865,
+            "p(95)": 4.697050000000001
+        },
+        "http_req_waiting": {
+            "min": 0,
+            "med": 562.1333,
+            "max": 6401.0599,
+            "p(90)": 4255.1878,
+            "p(95)": 4921.6350999999995,
+            "avg": 1471.220915722664
+        },
+        "iteration_duration": {
+            "med": 2314.3947,
+            "max": 20557.7105,
+            "p(90)": 5865.6698,
+            "p(95)": 6088.215749999999,
+            "avg": 3011.1707533811978,
+            "min": 966.1803
+        },
+        "cache_hits": {
+            "count": 2131,
+            "rate": 8.497540633296358
+        },
+        "iterations": {
+            "count": 20466,
+            "rate": 81.60988578181289
+        },
+        "cache_latency": {
+            "p(95)": 1916.0500000000002,
+            "avg": 499.443288590604,
+            "min": 1,
+            "med": 255.5,
+            "max": 4035,
+            "p(90)": 1242.1000000000004
+        },
+        "http_req_duration{expected_response:true}": {
+            "med": 331.4389,
+            "max": 2052.8425,
+            "p(90)": 1245.6532499999998,
+            "p(95)": 1368.790275,
+            "avg": 513.565795873786,
+            "min": 0.5022
+        },
+        "http_req_tls_handshaking": {
+            "min": 0,
+            "med": 0,
+            "max": 0,
+            "p(90)": 0,
+            "p(95)": 0,
+            "avg": 0
+        },
+        "group_duration": {
+            "max": 13266.678,
+            "p(90)": 5246.679349999997,
+            "p(95)": 6620.419029999999,
+            "avg": 1860.2998468120802,
+            "min": 208.3391,
+            "med": 1061.39275
+        },
+        "http_req_sending": {
+            "min": 0,
+            "med": 0,
+            "max": 10.347,
+            "p(90)": 0,
+            "p(95)": 0.5034,
+            "avg": 0.03778178144890217
+        },
+        "vus": {
+            "value": 12,
+            "min": 3,
+            "max": 500
+        },
+        "cache_misses": {
+            "count": 3829,
+            "rate": 15.268457571511853
+        },
+        "data_sent": {
+            "count": 9888604,
+            "rate": 39431.63505235894
+        },
+        "http_req_connecting": {
+            "min": 0,
+            "med": 0,
+            "max": 10.5251,
+            "p(90)": 0.63325,
+            "p(95)": 0.736225,
+            "avg": 0.2440633841092762
+        }
+    },
+    "root_group": {
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {
+            "Cached Dashboard Endpoints": {
+                "path": "::Cached Dashboard Endpoints",
+                "id": "73cc79e78928b9b207fa66575d399bd1",
+                "groups": {},
+                "checks": {
+                        "/api/dashboard/summary returns 200": {
+                            "name": "/api/dashboard/summary returns 200",
+                            "path": "::Cached Dashboard Endpoints::/api/dashboard/summary returns 200",
+                            "id": "a803e7995b29411633c89734d224b5a7",
+                            "passes": 393,
+                            "fails": 1097
+                        },
+                        "/api/dashboard/weekly returns 200": {
+                            "path": "::Cached Dashboard Endpoints::/api/dashboard/weekly returns 200",
+                            "id": "11472f330cfec5336e6b6ee7e6bc1025",
+                            "passes": 816,
+                            "fails": 674,
+                            "name": "/api/dashboard/weekly returns 200"
+                        },
+                        "/api/dashboard/recent returns 200": {
+                            "path": "::Cached Dashboard Endpoints::/api/dashboard/recent returns 200",
+                            "id": "7d25d139c6acaedc9a36dbc52d1246ef",
+                            "passes": 815,
+                            "fails": 675,
+                            "name": "/api/dashboard/recent returns 200"
+                        },
+                        "/api/transactions/categories returns 200": {
+                            "name": "/api/transactions/categories returns 200",
+                            "path": "::Cached Dashboard Endpoints::/api/transactions/categories returns 200",
+                            "id": "4bcc85bd9756019bfa0f2aa5004503f0",
+                            "passes": 815,
+                            "fails": 675
+                        }
+                    },
+                "name": "Cached Dashboard Endpoints"
+            },
+            "Cache Invalidation via Write": {
+                "name": "Cache Invalidation via Write",
+                "path": "::Cache Invalidation via Write",
+                "id": "5d87cf9ce885c04d59bca47b05d1ec0c",
+                "groups": {},
+                "checks": {
+                        "create returns 201": {
+                            "name": "create returns 201",
+                            "path": "::Cache Invalidation via Write::create returns 201",
+                            "id": "5ec5601955486418eeb3db6f67241414",
+                            "passes": 0,
+                            "fails": 1490
+                        },
+                        "dashboard after invalidation 200": {
+                            "name": "dashboard after invalidation 200",
+                            "path": "::Cache Invalidation via Write::dashboard after invalidation 200",
+                            "id": "fed775983daf1dfd875e0cfdb9ac6a8b",
+                            "passes": 407,
+                            "fails": 1083
+                        }
+                    }
+            }
+        },
+        "checks": {}
+    }
+}

@@ -1,0 +1,207 @@
+{
+    "metrics": {
+        "http_req_blocked": {
+            "min": 0,
+            "med": 0,
+            "max": 32.4271,
+            "p(90)": 0.6612900000000002,
+            "p(95)": 0.9925,
+            "avg": 0.32870688632228545
+        },
+        "iteration_duration": {
+            "max": 9702.0443,
+            "p(90)": 3091.74454,
+            "p(95)": 3356.7864,
+            "avg": 1981.7212393371142,
+            "min": 1000.3115,
+            "med": 1713.753
+        },
+        "iterations": {
+            "count": 22297,
+            "rate": 123.34233628206135
+        },
+        "http_req_waiting": {
+            "avg": 845.7074296455959,
+            "min": 0,
+            "med": 463.6454,
+            "max": 4090.6083,
+            "p(90)": 2031.5363,
+            "p(95)": 2181.1762749999984
+        },
+        "writes_failed": {
+            "count": 985,
+            "rate": 5.448813797274541
+        },
+        "http_req_duration": {
+            "p(95)": 2182.0194599999986,
+            "avg": 846.6368133771072,
+            "min": 0,
+            "med": 464.22455,
+            "max": 4091.722,
+            "p(90)": 2033.8788800000004,
+            "thresholds": {
+                "p(95)<1000": true,
+                "p(99)<3000": false
+            }
+        },
+        "http_req_receiving": {
+            "p(90)": 2.9504900000000003,
+            "p(95)": 4.232459999999998,
+            "avg": 0.8981919389288812,
+            "min": 0,
+            "med": 0,
+            "max": 10.7771
+        },
+        "http_req_failed": {
+            "passes": 23969,
+            "fails": 1313,
+            "value": 0.9480658175777232
+        },
+        "group_duration": {
+            "avg": 446.4325048223361,
+            "min": 0,
+            "med": 247.6575,
+            "max": 3503.6639,
+            "p(90)": 1259.15089,
+            "p(95)": 1866.7887099999998
+        },
+        "http_reqs": {
+            "count": 25282,
+            "rate": 139.8547313935989
+        },
+        "data_sent": {
+            "count": 6062589,
+            "rate": 33536.97318822829
+        },
+        "checks": {
+            "fails": 1992,
+            "passes": 963,
+            "value": 0.32588832487309644
+        },
+        "http_req_sending": {
+            "avg": 0.031191792579700974,
+            "min": 0,
+            "med": 0,
+            "max": 7.0893,
+            "p(90)": 0,
+            "p(95)": 0.38271999999998957
+        },
+        "vus": {
+            "value": 16,
+            "min": 4,
+            "max": 400
+        },
+        "http_req_duration{expected_response:true}": {
+            "max": 1349.8055,
+            "p(90)": 809.32036,
+            "p(95)": 877.3806,
+            "avg": 386.9464869002286,
+            "min": 0.5391,
+            "med": 419.1687
+        },
+        "vus_max": {
+            "value": 400,
+            "min": 400,
+            "max": 400
+        },
+        "errors": {
+            "passes": 23304,
+            "fails": 0,
+            "thresholds": {
+                "rate<0.10": true
+            },
+            "value": 1
+        },
+        "write_latency": {
+            "avg": 370.1213988832489,
+            "min": 0,
+            "med": 244.5468,
+            "max": 3503.089,
+            "p(90)": 767.1176000000002,
+            "p(95)": 1753.4175799999996,
+            "thresholds": {
+                "p(95)<1000": true
+            }
+        },
+        "data_received": {
+            "count": 16889531,
+            "rate": 93429.34978913306
+        },
+        "http_req_connecting": {
+            "min": 0,
+            "med": 0,
+            "max": 32.4271,
+            "p(90)": 0.6329,
+            "p(95)": 0.7743949999999997,
+            "avg": 0.289267735938613
+        },
+        "http_req_tls_handshaking": {
+            "max": 0,
+            "p(90)": 0,
+            "p(95)": 0,
+            "avg": 0,
+            "min": 0,
+            "med": 0
+        }
+    },
+    "root_group": {
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {
+            "Create Transaction": {
+                "name": "Create Transaction",
+                "path": "::Create Transaction",
+                "id": "4a0e0ebc57eadfa4f2b704a8893c7cbb",
+                "groups": {},
+                "checks": {
+                        "create returns 201": {
+                            "name": "create returns 201",
+                            "path": "::Create Transaction::create returns 201",
+                            "id": "05f4222aa295fc07f22af1c337119fed",
+                            "passes": 0,
+                            "fails": 985
+                        }
+                    }
+            },
+            "Read After Write": {
+                "name": "Read After Write",
+                "path": "::Read After Write",
+                "id": "96c4be6383441b02005831b1d7e6945d",
+                "groups": {},
+                "checks": {
+                        "read after write 200": {
+                            "name": "read after write 200",
+                            "path": "::Read After Write::read after write 200",
+                            "id": "87ac23972fa09235c6040976bb459308",
+                            "passes": 343,
+                            "fails": 642
+                        }
+                    }
+            },
+            "Update Transaction": {
+                "id": "693c68391a4f0243faa6a9cf07116c60",
+                "groups": {},
+                "checks": {},
+                "name": "Update Transaction",
+                "path": "::Update Transaction"
+            },
+            "Dashboard After Writes": {
+                "name": "Dashboard After Writes",
+                "path": "::Dashboard After Writes",
+                "id": "4d47016964a54e3e125cb79c336bc3fb",
+                "groups": {},
+                "checks": {
+                        "dashboard after writes 200": {
+                            "fails": 365,
+                            "name": "dashboard after writes 200",
+                            "path": "::Dashboard After Writes::dashboard after writes 200",
+                            "id": "ad2d4ae18e9217ec6ae8e728a7f546ad",
+                            "passes": 620
+                        }
+                    }
+            }
+        },
+        "checks": {}
+    }
+}

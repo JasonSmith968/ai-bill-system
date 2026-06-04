@@ -1,0 +1,172 @@
+{
+    "metrics": {
+        "http_req_failed": {
+            "passes": 13545,
+            "fails": 0,
+            "value": 1
+        },
+        "http_req_receiving": {
+            "p(90)": 4.23142,
+            "p(95)": 4.743979999999999,
+            "avg": 1.639381151716493,
+            "min": 0,
+            "med": 0.9904,
+            "max": 9.7497
+        },
+        "iteration_duration": {
+            "p(95)": 3744.31839,
+            "avg": 2215.043089354004,
+            "min": 732.446,
+            "med": 2432.8594,
+            "max": 3973.4294,
+            "p(90)": 3642.38602
+        },
+        "group_duration": {
+            "p(95)": 1980.9238800000005,
+            "avg": 502.61979421188744,
+            "min": 0,
+            "med": 287.231,
+            "max": 2420.982,
+            "p(90)": 1605.2621600000014
+        },
+        "vus": {
+            "min": 2,
+            "max": 99,
+            "value": 5
+        },
+        "http_req_duration": {
+            "avg": 214.9685604060526,
+            "min": 0,
+            "med": 234.2557,
+            "max": 596.1584,
+            "p(90)": 418.005,
+            "p(95)": 447.64111999999994,
+            "thresholds": {
+                "p(95)<1000": false
+            }
+        },
+        "http_reqs": {
+            "count": 13545,
+            "rate": 168.6419311970055
+        },
+        "data_received": {
+            "count": 9928485,
+            "rate": 123614.53556740504
+        },
+        "vus_max": {
+            "value": 100,
+            "min": 100,
+            "max": 100
+        },
+        "http_req_waiting": {
+            "avg": 213.27065538575093,
+            "min": 0,
+            "med": 232.0214,
+            "max": 595.7682,
+            "p(90)": 416.90726,
+            "p(95)": 445.81498
+        },
+        "http_req_tls_handshaking": {
+            "avg": 0,
+            "min": 0,
+            "med": 0,
+            "max": 0,
+            "p(90)": 0,
+            "p(95)": 0
+        },
+        "http_req_blocked": {
+            "max": 10.6991,
+            "p(90)": 0.57782,
+            "p(95)": 0.715,
+            "avg": 0.3225660834256197,
+            "min": 0,
+            "med": 0
+        },
+        "http_req_connecting": {
+            "p(95)": 0.6686799999999999,
+            "avg": 0.28117562938353824,
+            "min": 0,
+            "med": 0,
+            "max": 10.6991,
+            "p(90)": 0.5423800000000001
+        },
+        "errors": {
+            "passes": 3870,
+            "fails": 0,
+            "thresholds": {
+                "rate<0.15": true
+            },
+            "value": 1
+        },
+        "iterations": {
+            "count": 1935,
+            "rate": 24.09170445671507
+        },
+        "checks": {
+            "passes": 0,
+            "fails": 3870,
+            "value": 0
+        },
+        "duplicate_events": {
+            "count": 1935,
+            "rate": 24.09170445671507
+        },
+        "http_req_sending": {
+            "avg": 0.05852386858619435,
+            "min": 0,
+            "med": 0,
+            "max": 10.5022,
+            "p(90)": 0,
+            "p(95)": 0.5045
+        },
+        "data_sent": {
+            "count": 5659732,
+            "rate": 70466.45511535551
+        }
+    },
+    "root_group": {
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {
+            "Unique Webhook Events": {
+                "name": "Unique Webhook Events",
+                "path": "::Unique Webhook Events",
+                "id": "5edcf4a7f811e2f188991a7e4935bd66",
+                "groups": {},
+                "checks": {
+                        "webhook accepted or already processed": {
+                            "name": "webhook accepted or already processed",
+                            "path": "::Unique Webhook Events::webhook accepted or already processed",
+                            "id": "2fae47e9efb6a48d36e6faa061d03bec",
+                            "passes": 0,
+                            "fails": 1935
+                        }
+                    }
+            },
+            "Duplicate Webhook Events": {
+                "groups": {},
+                "checks": {
+                        "duplicate handled gracefully": {
+                            "fails": 1935,
+                            "name": "duplicate handled gracefully",
+                            "path": "::Duplicate Webhook Events::duplicate handled gracefully",
+                            "id": "73dd44f31136995be1890a8739dd2839",
+                            "passes": 0
+                        }
+                    },
+                "name": "Duplicate Webhook Events",
+                "path": "::Duplicate Webhook Events",
+                "id": "559b7c9a79bd2587cb9ed69af1c3c941"
+            },
+            "Burst Webhook Storm": {
+                "groups": {},
+                "checks": {},
+                "name": "Burst Webhook Storm",
+                "path": "::Burst Webhook Storm",
+                "id": "69bed5e49baacfd5b3df51fd4c652ea6"
+            }
+        },
+        "checks": {},
+        "name": ""
+    }
+}

@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  body {
+    @apply font-sans antialiased text-surface-800 dark:text-surface-100;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Mobile safe area for bottom browser bar */
+  @supports (padding-bottom: env(safe-area-inset-bottom)) {
+    main {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  }
+
+  ::selection {
+    @apply bg-brand-200 dark:bg-brand-800;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-300 dark:bg-surface-600 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-surface-400 dark:bg-surface-500;
+  }
+}
+
+@layer components {
+  /* Glass card */
+  .glass {
+    @apply bg-white/80 dark:bg-surface-800/80 backdrop-blur-xl border border-white/20 dark:border-surface-700/50;
+  }
+
+  .glass-strong {
+    @apply bg-white/95 dark:bg-surface-800/95 backdrop-blur-2xl;
+  }
+
+  /* Solid card */
+  .card {
+    @apply bg-white dark:bg-surface-800 rounded-2xl shadow-glass border border-surface-200/60 dark:border-surface-700/60 p-6 transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply card hover:shadow-glass-lg hover:-translate-y-0.5;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply relative overflow-hidden bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-semibold py-2.5 px-5 rounded-xl transition-all duration-300 shadow-md hover:shadow-glow active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply bg-surface-100 hover:bg-surface-200 dark:bg-surface-700 dark:hover:bg-surface-600 text-surface-700 dark:text-surface-200 font-medium py-2.5 px-5 rounded-xl transition-all duration-300 border border-surface-200 dark:border-surface-600;
+  }
+
+  .btn-ghost {
+    @apply text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-white hover:bg-surface-100 dark:hover:bg-surface-700 font-medium py-2 px-4 rounded-xl transition-all duration-200;
+  }
+
+  .btn-danger {
+    @apply bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white font-semibold py-2.5 px-5 rounded-xl transition-all duration-300 shadow-md hover:shadow-red-500/20;
+  }
+
+  /* Inputs */
+  .input-field {
+    @apply w-full px-4 py-2.5 bg-surface-50 dark:bg-surface-700/50 border border-surface-200 dark:border-surface-600 rounded-xl text-surface-800 dark:text-surface-100 placeholder-surface-400 dark:placeholder-surface-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 dark:focus:border-brand-400;
+  }
+
+  .label {
+    @apply block text-sm font-semibold text-surface-600 dark:text-surface-400 mb-1.5 tracking-wide;
+  }
+
+  /* Tags */
+  .tag-income {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800;
+  }
+
+  .tag-expense {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800;
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-gradient-to-r from-brand-600 to-violet-500 dark:from-brand-400 dark:to-violet-400 bg-clip-text text-transparent;
+  }
+
+  /* Animations with stagger */
+  .stagger-1 { animation-delay: 0.05s; }
+  .stagger-2 { animation-delay: 0.1s; }
+  .stagger-3 { animation-delay: 0.15s; }
+  .stagger-4 { animation-delay: 0.2s; }
+  .stagger-5 { animation-delay: 0.25s; }
+}
+
+/* Mobile-first responsive utilities */
+@media (max-width: 639px) {
+  .card {
+    @apply p-4 rounded-xl;
+  }
+
+  .btn-primary, .btn-secondary {
+    @apply py-2 px-4 text-sm;
+  }
+
+  .input-field {
+    @apply py-2 text-sm;
+  }
+}
+
+/* Ensure proper contrast in dark mode */
+@media (prefers-color-scheme: dark) {
+  .text-surface-500 {
+    color: #94a3b8;
+  }
+}

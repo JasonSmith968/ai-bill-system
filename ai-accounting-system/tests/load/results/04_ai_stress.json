@@ -1,0 +1,239 @@
+{
+    "root_group": {
+        "checks": {},
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {
+                "setup": {
+                    "name": "setup",
+                    "path": "::setup",
+                    "id": "5c0f8025f7e0b6654089e5b00e950f1a",
+                    "groups": {},
+                    "checks": {
+                            "login status 200": {
+                                "fails": 0,
+                                "name": "login status 200",
+                                "path": "::setup::login status 200",
+                                "id": "17a4a3f3d5dbad586fefc48e40f4a9ab",
+                                "passes": 1
+                            },
+                            "has access_token": {
+                                "fails": 0,
+                                "name": "has access_token",
+                                "path": "::setup::has access_token",
+                                "id": "7e5052bd2b94048e3a7b72a11d1a0ac8",
+                                "passes": 1
+                            }
+                        }
+                },
+                "AI Chat Endpoint": {
+                    "groups": {},
+                    "checks": {
+                            "ai chat returns 200": {
+                                "name": "ai chat returns 200",
+                                "path": "::AI Chat Endpoint::ai chat returns 200",
+                                "id": "d426b12529b09ae6e08473ec26d44d21",
+                                "passes": 0,
+                                "fails": 235
+                            },
+                            "has ai response": {
+                                "path": "::AI Chat Endpoint::has ai response",
+                                "id": "14e85ba7fb589bca935dd94de2915cdb",
+                                "passes": 0,
+                                "fails": 235,
+                                "name": "has ai response"
+                            }
+                        },
+                    "name": "AI Chat Endpoint",
+                    "path": "::AI Chat Endpoint",
+                    "id": "bd5a95341bca510aa932f913762b28ad"
+                },
+                "AI Analysis Endpoint": {
+                    "path": "::AI Analysis Endpoint",
+                    "id": "9366c3d8925590998bf085af53d37d79",
+                    "groups": {},
+                    "checks": {
+                            "ai analysis returns 200 or 429": {
+                                "name": "ai analysis returns 200 or 429",
+                                "path": "::AI Analysis Endpoint::ai analysis returns 200 or 429",
+                                "id": "039abb4c9857868c091a09ed111e0109",
+                                "passes": 205,
+                                "fails": 30
+                            }
+                        },
+                    "name": "AI Analysis Endpoint"
+                },
+                "Agent V2 Endpoint": {
+                    "name": "Agent V2 Endpoint",
+                    "path": "::Agent V2 Endpoint",
+                    "id": "71fcecc1100e64a3a7658a11ac4dc69d",
+                    "groups": {},
+                    "checks": {
+                            "agent run returns 200 or 503": {
+                                "path": "::Agent V2 Endpoint::agent run returns 200 or 503",
+                                "id": "2f5c788e50a04916a03c795dae05e213",
+                                "passes": 0,
+                                "fails": 235,
+                                "name": "agent run returns 200 or 503"
+                            }
+                        }
+                }
+            }
+    },
+    "metrics": {
+        "data_received": {
+            "count": 536722,
+            "rate": 3234.921039706161
+        },
+        "http_req_blocked": {
+            "med": 0.69675,
+            "max": 18.1745,
+            "p(90)": 1.2891,
+            "p(95)": 1.3634,
+            "avg": 0.7642189801699707,
+            "min": 0
+        },
+        "data_sent": {
+            "rate": 3149.4375210388575,
+            "count": 522539
+        },
+        "http_reqs": {
+            "count": 706,
+            "rate": 4.255190310873319
+        },
+        "http_req_duration{expected_response:true}": {
+            "min": 107.9592,
+            "med": 107.9592,
+            "max": 107.9592,
+            "p(90)": 107.9592,
+            "p(95)": 107.9592,
+            "avg": 107.9592
+        },
+        "iteration_duration": {
+            "avg": 9040.12831737288,
+            "min": 126.1337,
+            "med": 9075.981800000001,
+            "max": 9213.8485,
+            "p(90)": 9095.15905,
+            "p(95)": 9103.220825
+        },
+        "ai_calls_total": {
+            "count": 705,
+            "rate": 4.249163129129872
+        },
+        "vus_max": {
+            "value": 20,
+            "min": 20,
+            "max": 20
+        },
+        "http_req_failed": {
+            "passes": 705,
+            "fails": 1,
+            "thresholds": {
+                "rate<0.05": true
+            },
+            "value": 0.9985835694050992
+        },
+        "group_duration": {
+            "max": 146.1313,
+            "p(90)": 33.9858,
+            "p(95)": 37.600339999999996,
+            "avg": 18.849872907801434,
+            "min": 1.0856,
+            "med": 14.5483
+        },
+        "http_req_duration": {
+            "p(90)": 33.022149999999996,
+            "p(95)": 35.996275,
+            "avg": 17.508966997167153,
+            "min": 0.5105,
+            "med": 13.36525,
+            "max": 142.328,
+            "thresholds": {
+                "p(99)<10000": false,
+                "p(95)<5000": false
+            }
+        },
+        "http_req_waiting": {
+            "max": 142.328,
+            "p(90)": 32.2988,
+            "p(95)": 35.765100000000004,
+            "avg": 16.861705665722383,
+            "min": 0,
+            "med": 12.6263
+        },
+        "ai_errors_total": {
+            "count": 500,
+            "rate": 3.0135908717233137,
+            "thresholds": {
+                "count<50": true
+            }
+        },
+        "vus": {
+            "min": 1,
+            "max": 20,
+            "value": 1
+        },
+        "api_latency": {
+            "avg": 17.38066879432625,
+            "min": 0.5105,
+            "med": 13.3588,
+            "max": 142.328,
+            "p(90)": 32.9839,
+            "p(95)": 35.91277999999999
+        },
+        "errors": {
+            "fails": 206,
+            "passes": 500,
+            "thresholds": {
+                "rate<0.05": true
+            },
+            "value": 0.7082152974504249
+        },
+        "checks": {
+            "fails": 735,
+            "passes": 207,
+            "value": 0.2197452229299363
+        },
+        "iterations": {
+            "count": 235,
+            "rate": 1.4163877097099575
+        },
+        "http_req_tls_handshaking": {
+            "min": 0,
+            "med": 0,
+            "max": 0,
+            "p(90)": 0,
+            "p(95)": 0,
+            "avg": 0
+        },
+        "http_req_receiving": {
+            "avg": 0.5900885269121812,
+            "min": 0,
+            "med": 0,
+            "max": 10.3219,
+            "p(90)": 1.7572,
+            "p(95)": 3.367775
+        },
+        "http_req_connecting": {
+            "avg": 0.6446286118980167,
+            "min": 0,
+            "med": 0.6314,
+            "max": 2.246,
+            "p(90)": 1.1917,
+            "p(95)": 1.305125
+        },
+        "http_req_sending": {
+            "med": 0,
+            "max": 0.7998,
+            "p(90)": 0,
+            "p(95)": 0.55975,
+            "avg": 0.05717280453257789,
+            "min": 0
+        }
+    },
+    "setup_data": {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJ0ZW5hbnRfaWQiOjIsInRlbmFudF9yb2xlIjoib3duZXIiLCJleHAiOjE3Nzk5MDM4ODUsImlhdCI6MTc3OTkwMjk4NSwidHlwZSI6ImFjY2VzcyIsImp0aSI6IjA0NWJiZDU2LWMwNjktNGM5YS1iZGEyLTEwNzY1YWU4MWIwOCIsImZhbWlseSI6ImQ1ZTQ1ODU4LTZhM2MtNDk0NS05ZDVjLWIyZGI0MGExMTAxNiIsInJvbGUiOiJtZW1iZXIiLCJwZXJtaXNzaW9ucyI6WyJ0cmFuc2FjdGlvbjpyZWFkIiwidHJhbnNhY3Rpb246Y3JlYXRlIiwidHJhbnNhY3Rpb246dXBkYXRlIiwiYWk6Y2FsbCIsImFpOmFnZW50IiwicmVwb3J0OmV4cG9ydCJdfQ.bDTdYh61brNyLo195tO18EnMtt9kvP8Cl8I3iC1Vu1E"
+    }
+}

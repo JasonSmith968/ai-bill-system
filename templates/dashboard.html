@@ -1,607 +1,188 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="zh">
 
-{% block title %}
-Dashboard
-{% endblock %}
+<head>
 
-{% block extra_css %}
+    <meta charset="UTF-8">
 
-<style>
+    <title>AI财务中心</title>
 
-    .money-text {
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
 
-        color: #dc3545;
+    <style>
 
-        font-size: 30px;
+        body{
+            margin:0;
+            padding:0;
+            background:#f5f7fb;
+            font-family:Arial;
+        }
 
-        font-weight: bold;
-    }
+        .container{
+            width:1200px;
+            margin:auto;
+            padding:30px;
+        }
 
-    .chart-container {
+        h1{
+            margin-bottom:30px;
+        }
 
-        height: 350px;
-    }
+        .cards{
+            display:flex;
+            gap:20px;
+            margin-bottom:30px;
+        }
 
-    .table th {
+        .card{
+            flex:1;
+            background:white;
+            border-radius:15px;
+            padding:25px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.05);
+        }
 
-        background-color: #0d6efd;
+        .card h2{
+            margin:0;
+            color:#666;
+            font-size:18px;
+        }
 
-        color: white;
-    }
+        .card p{
+            font-size:32px;
+            color:#16a34a;
+            margin-top:15px;
+        }
 
-    .ai-card {
+        .main{
+            display:flex;
+            gap:20px;
+        }
 
-        border-left: 5px solid #198754;
-    }
+        .left{
+            flex:2;
+        }
 
-</style>
+        .right{
+            flex:1;
+        }
 
-{% endblock %}
+        .panel{
+            background:white;
+            border-radius:15px;
+            padding:20px;
+            margin-bottom:20px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.05);
+        }
 
-{% block content %}
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
 
+        th,td{
+            border-bottom:1px solid #eee;
+            padding:12px;
+            text-align:center;
+        }
 
+        #pieChart{
+            width:100%;
+            height:400px;
+        }
 
-<div class="container mt-4">
+        .ai-box{
+            line-height:1.8;
+            color:#333;
+        }
 
-    <!-- 顶部导航 -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    </style>
 
-        <h2 class="text-primary fw-bold">
-            欢迎，{{ username }}
-        </h2>
+</head>
 
-        <div class="d-flex gap-2">
+<body>
 
-            <a
-                href="/add_bill"
-                class="btn btn-primary"
-            >
-                添加账单
-            </a >
+<div class="container">
 
-            <a
-                href="/ai_add_bill"
-                class="btn btn-success"
-            >
-                AI智能记账
-            </a >
+    <h1>AI 财务数据中心</h1>
 
-            <a
-                href="/logout"
-                class="btn btn-outline-danger"
-            >
-                退出登录
-            </a >
+    <!-- 数据卡片 -->
+    <div class="cards">
 
+        <div class="card">
+            <h2>总消费</h2>
+            <p>¥ {{ total }}</p >
         </div>
 
-    </div>
-    <!-- 数据统计 -->
-    <div class="row g-4">
-
-        <!-- 账单数量 -->
-        <div class="col-md-4">
-            <div class="card shadow-sm stat-card">
-                <div class="card-body">
-
-                    <h5 class="text-muted">
-                        账单数量
-                    </h5>
-
-                    <h1 class="fw-bold">
-                        {{ bills|length }}
-                    </h1>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- 总消费 -->
-        <div class="col-md-4">
-            <div class="card shadow-sm stat-card">
-                <div class="card-body">
-
-                    <h5 class="text-muted">
-                        总消费
-                    </h5>
-
-                    <div class="money-text">
-                        ¥ {{ "%.2f"|format(total) }}
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- 平均消费 -->
-        <div class="col-md-4">
-            <div class="card shadow-sm stat-card">
-                <div class="card-body">
-
-                    <h5 class="text-muted">
-                        平均消费
-                    </h5>
-
-                    <h2 class="text-success fw-bold">
-                        ¥
-                        {% if bills|length > 0 %}
-                            {{ "%.2f"|format(total / (bills|length)) }}
-                        {% else %}
-                            0.00
-                        {% endif %}
-                    </h2>
-
-                </div>
-            </div>
+        <div class="card">
+            <h2>账单数量</h2>
+            <p>{{ bill_count }}</p >
         </div>
 
     </div>
 
-    <!-- 搜索区域 -->
-    <div class="card shadow-sm mt-4">
-        <div class="card-body">
+    <div class="main">
 
-            <form method="GET" action="/dashboard">
+        <!-- 左侧 -->
+        <div class="left">
 
-                <div class="row g-3">
+            <!-- 饼图 -->
+            <div class="panel">
 
-                    <!-- 关键词 -->
-                    <div class="col-md-4">
+                <h2>消费分类统计</h2>
 
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="keyword"
-                            placeholder="输入关键词"
-                            value="{{ keyword }}"
-                        >
+                <div id="pieChart"></div>
 
-                    </div>
+            </div>
 
-                    <!-- 分类 -->
-                    <div class="col-md-4">
+            <!-- 最近账单 -->
+            <div class="panel">
 
-                        <select class="form-select" name="category">
+                <h2>最近消费记录</h2>
 
-                            <option value="">
-                                全部分类
-                            </option>
+                <table>
 
-                            <option
-                                value="餐饮"
-                                {% if category == "餐饮" %}
-                                    selected
-                                {% endif %}
-                            >
-                                餐饮
-                            </option>
+                    <tr>
+                        <th>日期</th>
+                        <th>标题</th>
+                        <th>金额</th>
+                        <th>分类</th>
+                    </tr>
 
-                            <option
-                                value="交通"
-                                {% if category == "交通" %}
-                                    selected
-                                {% endif %}
-                            >
-                                交通
-                            </option>
+                    {% for bill in recent_bills %}
 
-                            <option
-                                value="购物"
-                                {% if category == "购物" %}
-                                    selected
-                                {% endif %}
-                            >
-                                购物
-                            </option>
+                    <tr>
 
-                            <option
-                                value="娱乐"
-                                {% if category == "娱乐" %}
-                                    selected
-                                {% endif %}
-                            >
-                                娱乐
-                            </option>
+                        <td>{{ bill[1] }}</td>
 
-                            <option
-                                value="学习"
-                                {% if category == "学习" %}
-                                    selected
-                                {% endif %}
-                            >
-                                学习
-                            </option>
+                        <td>{{ bill[2] }}</td>
 
-                            <option
-                                value="其他"
-                                {% if category == "其他" %}
-                                    selected
-                                {% endif %}
-                            >
-                                其他
-                            </option>
+                        <td>¥ {{ bill[3] }}</td>
 
-                        </select>
+                        <td>{{ bill[4] }}</td>
 
-                    </div>
-
-                    <!-- 按钮 -->
-                    <div class="col-md-4 d-grid">
-
-                        <button type="submit" class="btn btn-success">
-                            搜索 / 筛选
-                        </button>
-                        <a
-                            href="/dashboard"
-                            class="btn btn-secondary mt-2"
-                        >
-                            重置
-                        </a >
-
-                    </div>
-
-                </div>
-
-            </form>
-
-        </div>
-    </div>
-    <!-- AI分析 -->
-    <div class="card shadow-sm mt-4 ai-card">
-
-        <div class="card-body">
-
-            <h3 class="text-success mb-3">
-                AI消费分析
-            </h3>
-
-            {% if ai_analysis %}
-
-                <ul class="list-group">
-
-                    {% for item in ai_analysis %}
-
-                    <li class="list-group-item">
-                        {{ item }}
-                    </li>
+                    </tr>
 
                     {% endfor %}
 
-                </ul>
-                <!-- AI大模型分析 -->
-                <div class="alert alert-primary mt-3">
-
-                    <h5 class="mb-2">
-                        AI 智能分析
-                    </h5>
-
-                    <p style="white-space: pre-line;">
-                        {{ ai_report }}
-                    </p >
-
-                </div>
-
-            {% else %}
-
-                <div class="alert alert-secondary mb-0">
-                    暂无AI分析数据
-                </div>
-
-            {% endif %}
-
-        </div>
-
-    </div>
-
-    <!-- 图表 -->
-    <div class="row mt-4 g-4">
-
-        <!-- 分类统计 -->
-        <div class="col-md-6">
-
-            <div class="card shadow-sm">
-
-                <div class="card-body">
-
-                    <h4 class="mb-3">
-                        消费分类统计
-                    </h4>
-
-                    <div class="chart-container">
-                        <canvas id="categoryChart"></canvas>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- 月度趋势 -->
-        <div class="col-md-6">
-
-            <div class="card shadow-sm">
-
-                <div class="card-body">
-
-                    <h4 class="mb-3">
-                        月度消费趋势
-                    </h4>
-
-                    <div class="chart-container">
-                        <canvas id="trendChart"></canvas>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- 账单表格 -->
-    <div class="card shadow-sm mt-4 mb-5">
-
-        <div class="card-body">
-
-            <div class="d-flex justify-content-between align-items-center mb-3">
-
-                <h3>
-                    账单列表
-                </h3>
-
-                <div class="d-flex gap-2">
-
-                    <a
-                        href="/add_bill"
-                        class="btn btn-primary"
-                    >
-                        添加账单
-                    </a >
-
-                    <a
-                        href="/export_excel"
-                        class="btn btn-success"
-                    >
-                        导出Excel
-                    </a >
-
-                </div>
-
-            </div>
-
-            <div class="table-responsive">
-
-                <table class="table table-bordered table-hover align-middle">
-
-                    <thead>
-
-                        <tr>
-
-                            <th>ID</th>
-                            <th>金额</th>
-                            <th>分类</th>
-                            <th>备注</th>
-                            <th>日期</th>
-                            <th>操作</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        {% if bills %}
-
-                            {% for bill in bills %}
-
-                            <tr>
-
-                                <td>{{ bill["id"] }}</td>
-
-                                <td class="fw-bold">
-
-                                    {% if bill["money"] < 50 %}
-
-                                        <span class="text-success">
-                                            ¥ {{ "%.2f"|format(bill["money"]) }}
-                                        </span>
-
-                                    {% elif bill["money"] < 200 %}
-
-                                        <span class="text-warning">
-                                            ¥ {{ "%.2f"|format(bill["money"]) }}
-                                        </span>
-
-                                    {% else %}
-
-                                        <span class="text-danger">
-                                            ¥ {{ "%.2f"|format(bill["money"]) }}
-                                        </span>
-
-                                    {% endif %}
-
-                                </td>
-
-                                <td>{{ bill["category"] }}</td>
-
-                                <td>{{ bill["title"] }}</td>
-
-                                <td>{{ bill["date"] }}</td>
-
-                                <td>
-
-                                <!-- 查看按钮 -->
-                                <button
-                                    class="btn btn-info btn-sm"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#billModal{{ bill['id'] }}"
-                                >
-                                    查看
-                                </button>
-
-                                <!-- 编辑按钮 -->
-                                <a
-                                    href="/edit_bill/{{ bill['id'] }}"
-                                    class="btn btn-warning btn-sm"
-                                >
-                                    编辑
-                                </a >
-
-                                <!-- 删除按钮 -->
-                                <a
-                                    href="/delete_bill/{{ bill['id'] }}"
-                                    class="btn btn-danger btn-sm"
-                                    onclick="return confirm('确定删除这条账单吗？')"
-                                >
-                                    删除
-                                </a >
-
-                                </td>
-
-                            </tr>
-
-                            <!-- 账单详情弹窗 -->
-                            <div
-                                class="modal fade"
-                                id="billModal{{ bill['id'] }}"
-                                tabindex="-1"
-                            >
-
-                                <div class="modal-dialog">
-
-                                    <div class="modal-content">
-
-                                        <div class="modal-header">
-
-                                            <h5 class="modal-title">
-                                                账单详情
-                                            </h5>
-
-                                            <button
-                                                type="button"
-                                                class="btn-close"
-                                                data-bs-dismiss="modal"
-                                            ></button>
-
-                                        </div>
-
-                                        <div class="modal-body">
-
-                                            <p>
-                                                <strong>ID：</strong>
-                                                {{ bill["id"] }}
-                                            </p >
-
-                                            <p>
-                                                <strong>标题：</strong>
-                                                {{ bill["title"] }}
-                                            </p >
-
-                                            <p>
-                                                <strong>金额：</strong>
-                                                ¥ {{ "%.2f"|format(bill["money"]) }}
-                                            </p >
-
-                                            <p>
-                                                <strong>分类：</strong>
-                                                {{ bill["category"] }}
-                                            </p >
-
-                                            <p>
-                                                <strong>日期：</strong>
-                                                {{ bill["date"] }}
-                                            </p >
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            {% endfor %}
-
-                        {% else %}
-
-                            <tr>
-
-                                <td colspan="6" class="text-center text-muted">
-                                    暂无账单数据
-                                </td>
-
-                            </tr>
-
-                        {% endif %}
-
-                    </tbody>
-
                 </table>
 
-                <nav class="mt-4">
+            </div>
 
-                    <ul class="pagination justify-content-center">
+        </div>
 
-                        <!-- 上一页 -->
-                        {% if page > 1 %}
+        <!-- 右侧 -->
+        <div class="right">
 
-                        <li class="page-item">
+            <div class="panel">
 
-                            <a
-                                class="page-link"
-                                href=" "
-                            >
-                                上一页
-                            </a >
+                <h2>AI消费分析</h2>
 
-                        </li>
+                <div class="ai-box">
 
-                        {% endif %}
+                    {{ ai_report }}
 
-                        <!-- 页码 -->
-                        {% for p in range(1, total_pages + 1) %}
-
-                        <li
-                            class="page-item
-                            {% if p == page %}
-                                active
-                            {% endif %}
-                            "
-                        >
-
-                            <a
-                                class="page-link"
-                                href="/dashboard?page={{ p }}"
-                            >
-                                {{ p }}
-                            </a >
-
-                        </li>
-
-                        {% endfor %}
-
-                        <!-- 下一页 -->
-                        {% if page < total_pages %}
-
-                        <li class="page-item">
-
-                            <a
-                                class="page-link"
-                                href="/dashboard?page={{ page + 1 }}"
-                            >
-                                下一页
-                            </a >
-
-                        </li>
-
-                        {% endif %}
-
-                    </ul>
-
-                </nav>
+                </div>
 
             </div>
 
@@ -611,27 +192,43 @@ Dashboard
 
 </div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
 
-    const categoryLabels =
-        {{ category_labels|tojson }};
+    var chart = echarts.init(
+        document.getElementById('pieChart')
+    );
 
-    const categoryValues =
-        {{ category_values|tojson }};
+    var option = {
 
-    const trendLabels =
-        {{ trend_labels|tojson }};
+        tooltip: {
+            trigger: 'item'
+        },
 
-    const trendValues =
-        {{ trend_values|tojson }};
+        series: [
+            {
+                type: 'pie',
+
+                radius: '70%',
+
+                data: [
+
+                    {% for item in category_data %}
+
+                    {
+                        value: {{ item[1] }},
+                        name: '{{ item[0] }}'
+                    },
+
+                    {% endfor %}
+
+                ]
+            }
+        ]
+    };
+
+    chart.setOption(option);
 
 </script>
 
-<script
-    src="{{ url_for('static', filename='js/main.js') }}"
-></script>
-
-{% endblock %}
+</body>
+</html>

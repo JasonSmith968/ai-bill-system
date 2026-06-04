@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-05-28T06:01:18.632314",
+  "project": "AI Accounting System",
+  "python_version": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+  "summary": {
+    "total_dependencies": 51,
+    "direct_dependencies": 28,
+    "transitive_dependencies": 23,
+    "pinned_count": 0,
+    "unpinned_count": 28,
+    "pin_percentage": 0.0,
+    "hashes_added": 0
+  },
+  "vulnerabilities": [],
+  "vulnerability_count": 0,
+  "warnings": [],
+  "recommendations": [
+    "Pin 28 unpinned dependencies in requirements.in",
+    "Add hash verification with --with-hashes flag"
+  ]
+}

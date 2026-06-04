@@ -1,0 +1,63 @@
+# =============================================================================
+# Abstract requirements — see requirements-lock.txt for pinned versions
+# To update: edit requirements.in, then run: python scripts/lock_dependencies.py
+# To install reproducibly: pip install -r requirements-lock.txt
+# =============================================================================
+
+# Core
+Flask==3.0.0
+Flask-SQLAlchemy==3.1.1
+Flask-Migrate==4.0.5
+Flask-CORS==4.0.0
+
+# Security
+PyJWT==2.8.0
+Werkzeug==3.0.1
+Flask-Limiter==3.5.0
+redis>=5.0.0
+pyotp>=2.9.0
+qrcode>=7.4
+
+# Database
+PyMySQL==1.1.0
+cryptography==44.0.0
+
+# AI
+requests==2.31.0
+
+# Reports
+openpyxl>=3.1.0
+
+# OCR (pure Python, no external binary needed, works on Windows)
+Pillow>=10.0.0
+rapidocr-onnxruntime>=1.2.0
+
+# Config
+python-dotenv==1.0.0
+
+# Date utilities (used by billing_service.py for Alipay date calculations)
+python-dateutil>=2.8.0
+
+# Object Storage (optional - install as needed)
+minio>=7.2.0
+oss2>=2.18.0
+cos-python-sdk-v5>=1.9.30
+
+# Async / Task Queue
+celery>=5.3.0
+flask-caching>=2.1.0
+flask-socketio>=5.3.0
+eventlet>=0.35.0
+
+# Report generation
+reportlab>=4.0
+
+# Payment
+stripe>=7.0.0
+
+# Monitoring
+sentry-sdk[flask]>=1.38.0
+prometheus-client>=0.19.0
+
+# Production
+gunicorn==21.2.0

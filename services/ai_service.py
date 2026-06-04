@@ -1,145 +1,196 @@
+from openai import OpenAI
 import json
 
-from openai import OpenAI
-
-
 # =========================
-# deepseek API
+# DeepSeek Client
 # =========================
 client = OpenAI(
+
     api_key="sk-bfb27c7e9ac047b09736099c41e8e4fc",
+
     base_url="https://api.deepseek.com"
+
 )
+
+# =========================
+# 智能分类
+# =========================
+def smart_category(text):
+
+    text = text.lower()
+
+    food_keywords = [
+        "奶茶",
+        "咖啡",
+        "火锅",
+        "烧烤",
+        "早餐",
+        "午饭",
+        "晚饭",
+        "麦当劳",
+        "肯德基",
+        "星巴克",
+        "吃饭",
+        "饮料"
+    ]
+
+    traffic_keywords = [
+        "滴滴",
+        "打车",
+        "公交",
+        "地铁",
+        "高铁",
+        "机票",
+        "加油"
+    ]
+
+    shopping_keywords = [
+        "淘宝",
+        "京东",
+        "拼多多",
+        "买衣服",
+        "鞋子",
+        "耳机",
+        "手机"
+    ]
+
+    entertainment_keywords = [
+        "电影",
+        "ktv",
+        "游戏",
+        "网吧",
+        "酒吧"
+    ]
+
+    for word in food_keywords:
+
+        if word in text:
+            return "餐饮"
+
+    for word in traffic_keywords:
+
+        if word in text:
+            return "交通"
+
+    for word in shopping_keywords:
+
+        if word in text:
+            return "购物"
+
+    for word in entertainment_keywords:
+
+        if word in text:
+            return "娱乐"
+
+    return "其他"
+
+
+# =========================
+# AI解析账单
+# =========================
+def parse_bill_text(bill_text):
+
+    prompt = f"""
+你是智能记账助手。
+
+请提取所有消费记录。
+
+只返回 JSON 数组。
+
+格式：
+
+[
+    {{
+        "money": 18,
+        "title": "奶茶"
+    }}
+]
+
+用户输入：
+
+{bill_text}
+"""
+
+    try:
+
+        response = client.chat.completions.create(
+
+            model="deepseek-chat",
+
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+
+        )
+
+        result = response.choices[0].message.content
+
+        print("========== AI返回 ==========")
+
+        print(result)
+
+        result = result.replace("```json", "")
+        result = result.replace("```", "")
+        result = result.strip()
+
+        data = json.loads(result)
+
+        return data
+
+    except Exception as e:
+
+        print("AI解析失败：", e)
+
+        return []
 
 
 # =========================
 # AI消费分析
 # =========================
-def generate_ai_report(bills):
-
-    # 无数据
-    if len(bills) == 0:
-
-        return "暂无消费数据"
-
-    # 拼接账单文本
-    bill_text = ""
-
-    for bill in bills:
-
-        bill_text += (
-            f"日期:{bill['date']}, "
-            f"标题:{bill['title']}, "
-            f"金额:{bill['money']}, "
-            f"分类:{bill['category']}\n"
-        )
+def generate_ai_report(bills, total):
 
     prompt = f"""
-你是一名专业财务分析助手。
+你是专业财务分析师。
 
-以下是用户近期消费记录：
+请根据账单数据：
 
-{bill_text}
+1. 分析消费习惯
+2. 分析消费风险
+3. 给出省钱建议
 
-请从以下几个角度分析：
+总消费：
 
-1. 消费习惯
-2. 高消费风险
-3. 节省建议
-4. 消费结构是否合理
+{total}
 
-要求：
-1. 使用中文
-2. 控制在150字以内
-3. 使用简洁条目形式
+账单：
+
+{bills}
+
+请简洁回答。
 """
 
     try:
 
-        completion = client.chat.completions.create(
+        response = client.chat.completions.create(
 
             model="deepseek-chat",
 
             messages=[
                 {
-                    "role": "system",
-                    "content": "你是一名专业财务分析助手"
-                },
-                {
                     "role": "user",
                     "content": prompt
                 }
-            ],
+            ]
 
-            temperature=0.7,
-            max_tokens=512
         )
 
-        ai_text = completion.choices[0].message.content
-
-        return ai_text
+        return response.choices[0].message.content
 
     except Exception as e:
 
-        return f"AI分析失败: {str(e)}"
+        print("AI分析失败：", e)
 
-
-# =========================
-# AI自然语言记账
-# =========================
-def parse_bill_text(user_input):
-
-    prompt = f"""
-你是一个智能记账助手。
-
-请从下面文本中提取：
-
-1. title
-2. money
-3. category
-4. date
-
-用户输入：
-{user_input}
-
-返回 JSON 格式：
-
-{{
-    "title": "",
-    "money": 0,
-    "category": "",
-    "date": ""
-}}
-
-不要返回其他内容。
-"""
-
-    try:
-
-        completion = client.chat.completions.create(
-            model="deepseek-chat",
-
-            messages=[
-                {
-                    "role": "system",
-                    "content": "你是智能记账助手"
-                },
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ],
-
-            temperature=0.3,
-            max_completion_tokens=512
-        )
-
-        content = completion.choices[0].message.content
-
-        return json.loads(content)
-
-    except Exception as e:
-
-        return {
-            "error": str(e)
-        }
+        return "AI分析失败"

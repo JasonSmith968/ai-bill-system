@@ -1,0 +1,342 @@
+{
+  "generated_at": "2026-05-28T06:01:26.054400",
+  "project": "AI Accounting System",
+  "python_version": "3.13.9",
+  "summary": {
+    "total_packages": 51,
+    "abstract_requirements": 28,
+    "vulnerability_count": 0,
+    "outdated_count": 0,
+    "duplicate_count": 0,
+    "has_conflicts": false,
+    "hashes_verified": false
+  },
+  "packages": [
+    {
+      "name": "Flask",
+      "extras": "",
+      "version": "3.0.0",
+      "line": 19
+    },
+    {
+      "name": "Flask-SQLAlchemy",
+      "extras": "",
+      "version": "3.1.1",
+      "line": 20
+    },
+    {
+      "name": "Flask-Migrate",
+      "extras": "",
+      "version": "4.0.5",
+      "line": 21
+    },
+    {
+      "name": "Flask-CORS",
+      "extras": "",
+      "version": "4.0.0",
+      "line": 22
+    },
+    {
+      "name": "PyJWT",
+      "extras": "",
+      "version": "2.8.0",
+      "line": 23
+    },
+    {
+      "name": "Werkzeug",
+      "extras": "",
+      "version": "3.0.1",
+      "line": 24
+    },
+    {
+      "name": "Flask-Limiter",
+      "extras": "",
+      "version": "3.5.0",
+      "line": 25
+    },
+    {
+      "name": "redis",
+      "extras": "",
+      "version": "5.0.1",
+      "line": 26
+    },
+    {
+      "name": "pyotp",
+      "extras": "",
+      "version": "2.9.0",
+      "line": 27
+    },
+    {
+      "name": "qrcode",
+      "extras": "",
+      "version": "7.4.2",
+      "line": 28
+    },
+    {
+      "name": "PyMySQL",
+      "extras": "",
+      "version": "1.1.0",
+      "line": 29
+    },
+    {
+      "name": "cryptography",
+      "extras": "",
+      "version": "44.0.0",
+      "line": 30
+    },
+    {
+      "name": "requests",
+      "extras": "",
+      "version": "2.31.0",
+      "line": 31
+    },
+    {
+      "name": "openpyxl",
+      "extras": "",
+      "version": "3.1.2",
+      "line": 32
+    },
+    {
+      "name": "reportlab",
+      "extras": "",
+      "version": "4.0.8",
+      "line": 33
+    },
+    {
+      "name": "Pillow",
+      "extras": "",
+      "version": "10.1.0",
+      "line": 34
+    },
+    {
+      "name": "rapidocr-onnxruntime",
+      "extras": "",
+      "version": "1.3.16",
+      "line": 35
+    },
+    {
+      "name": "python-dotenv",
+      "extras": "",
+      "version": "1.0.0",
+      "line": 36
+    },
+    {
+      "name": "minio",
+      "extras": "",
+      "version": "7.2.0",
+      "line": 37
+    },
+    {
+      "name": "oss2",
+      "extras": "",
+      "version": "2.18.0",
+      "line": 38
+    },
+    {
+      "name": "cos-python-sdk-v5",
+      "extras": "",
+      "version": "1.9.30",
+      "line": 39
+    },
+    {
+      "name": "celery",
+      "extras": "",
+      "version": "5.3.6",
+      "line": 40
+    },
+    {
+      "name": "flask-caching",
+      "extras": "",
+      "version": "2.1.0",
+      "line": 41
+    },
+    {
+      "name": "flask-socketio",
+      "extras": "",
+      "version": "5.3.6",
+      "line": 42
+    },
+    {
+      "name": "eventlet",
+      "extras": "",
+      "version": "0.35.2",
+      "line": 43
+    },
+    {
+      "name": "sentry-sdk",
+      "extras": "flask",
+      "version": "1.38.0",
+      "line": 44
+    },
+    {
+      "name": "prometheus-client",
+      "extras": "",
+      "version": "0.19.0",
+      "line": 45
+    },
+    {
+      "name": "gunicorn",
+      "extras": "",
+      "version": "21.2.0",
+      "line": 46
+    },
+    {
+      "name": "Jinja2",
+      "extras": "",
+      "version": "3.1.2",
+      "line": 53
+    },
+    {
+      "name": "Mako",
+      "extras": "",
+      "version": "1.3.0",
+      "line": 54
+    },
+    {
+      "name": "MarkupSafe",
+      "extras": "",
+      "version": "2.1.3",
+      "line": 55
+    },
+    {
+      "name": "SQLAlchemy",
+      "extras": "",
+      "version": "2.0.23",
+      "line": 56
+    },
+    {
+      "name": "alembic",
+      "extras": "",
+      "version": "1.13.1",
+      "line": 57
+    },
+    {
+      "name": "amqp",
+      "extras": "",
+      "version": "5.2.0",
+      "line": 58
+    },
+    {
+      "name": "async-timeout",
+      "extras": "",
+      "version": "4.0.3",
+      "line": 59
+    },
+    {
+      "name": "billiard",
+      "extras": "",
+      "version": "4.2.0",
+      "line": 60
+    },
+    {
+      "name": "blinker",
+      "extras": "",
+      "version": "1.7.0",
+      "line": 61
+    },
+    {
+      "name": "certifi",
+      "extras": "",
+      "version": "2023.11.17",
+      "line": 62
+    },
+    {
+      "name": "charset-normalizer",
+      "extras": "",
+      "version": "3.3.2",
+      "line": 63
+    },
+    {
+      "name": "click",
+      "extras": "",
+      "version": "8.1.7",
+      "line": 64
+    },
+    {
+      "name": "colorama",
+      "extras": "",
+      "version": "0.4.6",
+      "line": 65
+    },
+    {
+      "name": "et-xmlfile",
+      "extras": "",
+      "version": "1.1.0",
+      "line": 66
+    },
+    {
+      "name": "idna",
+      "extras": "",
+      "version": "3.6",
+      "line": 67
+    },
+    {
+      "name": "importlib-metadata",
+      "extras": "",
+      "version": "7.0.1",
+      "line": 68
+    },
+    {
+      "name": "itsdangerous",
+      "extras": "",
+      "version": "2.1.2",
+      "line": 69
+    },
+    {
+      "name": "kombu",
+      "extras": "",
+      "version": "5.3.4",
+      "line": 70
+    },
+    {
+      "name": "pypng",
+      "extras": "",
+      "version": "0.20220715.0",
+      "line": 71
+    },
+    {
+      "name": "typing_extensions",
+      "extras": "",
+      "version": "4.9.0",
+      "line": 72
+    },
+    {
+      "name": "urllib3",
+      "extras": "",
+      "version": "2.1.0",
+      "line": 73
+    },
+    {
+      "name": "vine",
+      "extras": "",
+      "version": "5.1.0",
+      "line": 74
+    },
+    {
+      "name": "zipp",
+      "extras": "",
+      "version": "3.17.0",
+      "line": 75
+    }
+  ],
+  "vulnerabilities": [],
+  "outdated": [],
+  "duplicates": [],
+  "conflicts": {
+    "ok": true,
+    "message": "No broken requirements found.\n"
+  },
+  "hash_verification": {
+    "verified": false,
+    "issues": [
+      "No hash entries found - run lock_dependencies.py --with-hashes"
+    ]
+  },
+  "recommendations": [
+    {
+      "priority": "medium",
+      "message": "Add hash verification for supply chain security",
+      "action": "Run: python scripts/lock_dependencies.py --with-hashes"
+    }
+  ]
+}

@@ -1,66 +1,99 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="zh">
 
-{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>AI识别结果</title>
 
-<div class="container mt-5">
+    <style>
 
-    <div class="card shadow-sm">
+        body{
+            font-family: Arial;
+            background: #f5f5f5;
+            padding: 40px;
+        }
 
-        <div class="card-body">
+        .box{
+            width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
 
-            <h2 class="text-success mb-4">
-                AI识别结果确认
-            </h2>
+        h1{
+            color: #16a34a;
+        }
 
-            <table class="table table-bordered">
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-                <tr>
-                    <th>标题</th>
-                    <td>{{ bill.title }}</td>
-                </tr>
+        th,td{
+            border-bottom: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
 
-                <tr>
-                    <th>金额</th>
-                    <td>¥ {{ bill.money }}</td>
-                </tr>
+        button{
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-                <tr>
-                    <th>分类</th>
-                    <td>{{ bill.category }}</td>
-                </tr>
+    </style>
 
-                <tr>
-                    <th>日期</th>
-                    <td>{{ bill.date }}</td>
-                </tr>
+</head>
 
-            </table>
+<body>
 
-            <form
-                method="POST"
-                action="/confirm_ai_bill"
-            >
+<div class="box">
 
-                <button
-                    type="submit"
-                    class="btn btn-success"
-                >
-                    确认入账
-                </button>
+    <h1>AI识别结果</h1>
 
-                <a
-                    href=" "
-                    class="btn btn-secondary"
-                >
-                    重新识别
-                </a >
+    <table>
 
-            </form>
+        <tr>
+            <th>日期</th>
+            <th>标题</th>
+            <th>金额</th>
+            <th>分类</th>
+        </tr>
 
-        </div>
+        {% for item in bills %}
 
-    </div>
+        <tr>
+
+            <td>{{ item.date }}</td>
+
+            <td>{{ item.title }}</td>
+
+            <td>{{ item.money }}</td>
+
+            <td>{{ item.category }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <form action="/confirm_ai_bill" method="POST">
+
+        <button type="submit">
+            确认入账
+        </button>
+
+    </form>
 
 </div>
 
-{% endblock %}
+</body>
+</html>

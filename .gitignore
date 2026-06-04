@@ -1,0 +1,71 @@
+# ===========================================
+# AI Accounting System — Root .gitignore
+# ===========================================
+
+# --- Environment files (SECURITY: never commit secrets) ---
+.env
+.env.local
+.env.production
+.env.*
+!.env.example
+!.env.production.example
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# --- Virtual environment ---
+venv/
+.venv/
+env/
+
+# --- Database files ---
+*.db
+*.sqlite3
+instance/
+
+# --- IDE ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+logs/
+*.log
+
+# --- Node (for ai-accounting-system/frontend) ---
+node_modules/
+frontend/dist/
+.vite/
+
+# --- Uploads ---
+backend/uploads/
+uploads/
+
+# --- Docker ---
+docker-compose.override.yml
+
+# --- SSL certificates ---
+nginx/ssl/*.pem
+nginx/ssl/*.key
+
+# --- Monitoring data ---
+monitoring/grafana/data/
+prometheus_data/
+
+# --- ELK data ---
+elk/elasticsearch/data/
+
+# --- Backups ---
+backups/
